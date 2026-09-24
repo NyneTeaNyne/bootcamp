@@ -20,7 +20,7 @@ metadata:
   namespace: my-app-dev
 spec:
   interval: 5m
-  path: "./developer/k8s/nginx-test"
+  path: "./developer/k8s/app"
   prune: true
   sourceRef:
     kind: GitRepository
