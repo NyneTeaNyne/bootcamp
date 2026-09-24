@@ -1,0 +1,29 @@
+meta {
+  name: Create item
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/items
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "productName": "Running Shoes {{$timestamp}}",
+    "price": 59.99
+  }
+}
+
+script:post-response {
+  bru.setVar("itemId", res.getBody().id);
+  bru.setVar("productName", res.getBody().productName);
+}
+
+tests {
+  test("returns 201", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
+}

@@ -1,0 +1,35 @@
+meta {
+  name: Create customer
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "customer_{{$timestamp}}",
+    "password": "CustomerPassw0rd!"
+  }
+}
+
+script:post-response {
+  bru.setVar("userId", res.getBody().id);
+  bru.setVar("customerUsername", res.getBody().username);
+}
+
+tests {
+  test("returns 201", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
+  test("generates the corporate email", function() {
+    expect(res.getBody().email).to.equal(res.getBody().username + "@decathlon.com");
+  });
+  test("never returns the password", function() {
+    expect(res.getBody()).to.not.have.property("password");
+  });
+}

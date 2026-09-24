@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres:16-alpine
+    container_name: order_manager_postgres_db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: order_manager
+      POSTGRES_USER: franck
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: order_manager_mailpit
+    restart: always
+    ports:
+      - "1025:1025" # SMTP Port (for the App)
+      - "8025:8025" # Web UI Port (for the Developer)
+
+  valkey:
+    image: valkey/valkey:8-alpine
+    container_name: order_manager_valkey
+    restart: always
+    ports:
+      - "6379:6379" # Redis protocol (cache of the API)
+volumes:
+  db_data:

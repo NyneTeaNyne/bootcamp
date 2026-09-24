@@ -1,0 +1,21 @@
+meta {
+  name: API docs (public)
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api-docs
+  body: none
+  auth: none
+}
+
+tests {
+  test("returns 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+}
+
+docs {
+  The OpenAPI description behind Swagger UI: http://localhost:8080/api/v1/swagger-ui.html
+}

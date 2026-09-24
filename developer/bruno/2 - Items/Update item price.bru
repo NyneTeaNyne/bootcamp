@@ -1,0 +1,27 @@
+meta {
+  name: Update item price
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/items/{{itemId}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "productName": "{{productName}}",
+    "price": 49.99
+  }
+}
+
+tests {
+  test("returns 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  test("has the new price", function() {
+    expect(res.getBody().price).to.equal(49.99);
+  });
+}

@@ -1,0 +1,21 @@
+meta {
+  name: Delete user
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/users/{{userId}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("returns 204", function() {
+    expect(res.getStatus()).to.equal(204);
+  });
+}
+
+docs {
+  A user who still has orders cannot be deleted (409): delete the order first.
+}

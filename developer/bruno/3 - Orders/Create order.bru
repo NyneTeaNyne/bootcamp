@@ -1,0 +1,45 @@
+meta {
+  name: Create order
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/orders
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "customer": {
+      "id": {{userId}}
+    },
+    "items": [
+      {
+        "id": {{itemId}},
+        "quantity": 2
+      }
+    ]
+  }
+}
+
+script:post-response {
+  bru.setVar("orderId", res.getBody().id);
+}
+
+tests {
+  test("returns 201", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
+  test("starts as PENDING", function() {
+    expect(res.getBody().status).to.equal("PENDING");
+  });
+  test("computes the total from the catalog price", function() {
+    expect(res.getBody().totalAmount).to.equal(99.98);
+  });
+}
+
+docs {
+  Also sends a confirmation email: check it in Mailpit, http://localhost:8025
+}

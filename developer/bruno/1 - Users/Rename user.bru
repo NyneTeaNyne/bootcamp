@@ -1,0 +1,26 @@
+meta {
+  name: Rename user
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/users/{{userId}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username": "renamed_{{$timestamp}}"
+  }
+}
+
+tests {
+  test("returns 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  test("regenerates the email", function() {
+    expect(res.getBody().email).to.equal(res.getBody().username + "@decathlon.com");
+  });
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Error - order not found
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/orders/999999
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("returns 404", function() {
+    expect(res.getStatus()).to.equal(404);
+  });
+  test("explains the error", function() {
+    expect(res.getBody().detail).to.equal("Order not found");
+  });
+}

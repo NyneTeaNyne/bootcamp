@@ -1,0 +1,4 @@
+com.mentoring.bootcamp.ordermanager.common.autoconfigure.CommonWebAutoConfiguration
+com.mentoring.bootcamp.ordermanager.common.autoconfigure.CommonSecurityAutoConfiguration
+com.mentoring.bootcamp.ordermanager.common.autoconfigure.CommonMailAutoConfiguration
+com.mentoring.bootcamp.ordermanager.common.autoconfigure.CommonOpenApiAutoConfiguration

@@ -1,0 +1,28 @@
+# Module 16 - Tells FluxCD which GitHub repository to watch and which folder to deploy.
+# Replace OWNER/REPO with your GitHub account and repository name before applying.
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: kustomization-repo
+  namespace: my-app-dev
+spec:
+  interval: 1m
+  url: ssh://git@github.com/OWNER/REPO.git
+  secretRef:
+    name: github-auth
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: my-app-deploy
+  namespace: my-app-dev
+spec:
+  interval: 5m
+  path: "./developer/k8s/nginx-test"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: kustomization-repo
+  targetNamespace: my-app-dev

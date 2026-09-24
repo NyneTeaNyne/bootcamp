@@ -1,0 +1,39 @@
+meta {
+  name: Order Manager API
+}
+
+auth {
+  mode: oauth2
+}
+
+auth:oauth2 {
+  grant_type: authorization_code
+  callback_url: {{callbackUrl}}
+  authorization_url: {{baseUrl}}/oauth2/authorize
+  access_token_url: {{baseUrl}}/oauth2/token
+  refresh_token_url: {{baseUrl}}/oauth2/token
+  client_id: {{clientId}}
+  client_secret: {{clientSecret}}
+  scope: read
+  state: bruno
+  pkce: true
+  credentials_placement: basic_auth_header
+  credentials_id: credentials
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: true
+}
+
+docs {
+  # Order Manager API
+
+  1. Select the **local** environment (top right).
+  2. Run **0 - Setup / Sign up** once: it creates the account used to log in
+     (`loginUsername` / `loginPassword` in the environment).
+  3. Collection settings > **Auth** > **Get Access Token**: a login page opens,
+     log in with that account. Every request then inherits the token.
+  4. Run the folders in order (1 → 5), or the whole collection with the Runner.
+
+  The token lives 30 minutes, and the API forgets it when it restarts: just get a new one.
+}

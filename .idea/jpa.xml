@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit moduleName="order-manager-api" name="order-manager-api" framework="JPA" ormUnit="order-manager-api:order-manager-api" defaultDataSourceId="8b0952ad-53c1-428d-8dda-b9f691acf6fb" />
+    </persistence-units>
+  </component>
+</project>

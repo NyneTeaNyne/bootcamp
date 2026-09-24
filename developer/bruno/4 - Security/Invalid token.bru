@@ -1,0 +1,24 @@
+meta {
+  name: Invalid token
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/orders
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: not-a-real-token
+}
+
+tests {
+  test("returns 401", function() {
+    expect(res.getStatus()).to.equal(401);
+  });
+  test("explains the error", function() {
+    expect(res.getBody().detail).to.equal("A valid access token is required");
+  });
+}

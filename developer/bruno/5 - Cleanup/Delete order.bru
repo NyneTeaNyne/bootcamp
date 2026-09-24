@@ -1,0 +1,17 @@
+meta {
+  name: Delete order
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/orders/{{orderId}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("returns 204", function() {
+    expect(res.getStatus()).to.equal(204);
+  });
+}
