@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-api
+  namespace: my-app-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-api
+  template:
+    metadata:
+      labels:
+        app: spring-api
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/nyneteanyne/bootcamp/api:v1
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-service:5432/order_manager
+            - name: SPRING_DATASOURCE_USERNAME
+              value: franck
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: root
+            - name: SPRING_DATA_REDIS_HOST
+              value: valkey-service
+            - name: SPRING_DATA_REDIS_PORT
+              value: "6379"
+            - name: SPRING_MAIL_HOST
+              value: mailpit-service
+            - name: SPRING_MAIL_PORT
+              value: "1025"
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+  namespace: my-app-dev
+spec:
+  selector:
+    app: spring-api
+  ports:
+    - port: 8080
+      targetPort: 8080
